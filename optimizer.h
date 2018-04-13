@@ -6,6 +6,7 @@
 #include <list>
 #include <cmath>
 #include <array>
+#include <functional>
 
 namespace opt
 {
@@ -34,6 +35,7 @@ namespace opt
         void assign(double val)
         { return impl->assign(val); }
         GraphNode operator+(GraphNode rhs) const;
+        GraphNode operator-(GraphNode rhs) const;
         // power
         GraphNode operator^(GraphNode rhs) const;
         GraphNode operator*(GraphNode rhs) const;
@@ -91,6 +93,23 @@ namespace opt
     private:
         GraphNode lhs, rhs;
     };
+
+    class OpSubNodeImpl: public IGraphNodeImpl {
+    public:
+        OpSubNodeImpl(GraphNode lhs, GraphNode rhs)
+        : lhs(lhs), rhs(rhs) {}
+        virtual double eval() const
+        { return lhs.eval() - rhs.eval(); }
+        virtual bool isMutable() const
+        { return false;} 
+        virtual void assign(double val_)
+        {
+            // nothing..
+        }
+    private:
+        GraphNode lhs, rhs;
+    };
+
 
     class OpMulNodeImpl: public IGraphNodeImpl {
     public:
@@ -173,6 +192,8 @@ namespace opt
         return Function<sizeof...(args)>(expr, args...);
     }
     extern const opt::Constant e;
+    double GoldenSearch(std::function<double(double)> func, double l, double a, double b);
+    double FibonacciSearch(std::function<double(double)> func, double l, double epsilon, double a, double b);
 }
 
 std::ostream &operator<<(std::ostream &out, const opt::GraphNode &var);
