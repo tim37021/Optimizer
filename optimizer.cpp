@@ -2,6 +2,7 @@
 
 namespace opt
 {
+    const opt::Constant e = 2.71828_const;
     GraphNode::GraphNode(double val)
     : name("CONST"), impl(new ConstantNodeImpl(val))
     {

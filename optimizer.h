@@ -172,12 +172,11 @@ namespace opt
     {
         return Function<sizeof...(args)>(expr, args...);
     }
+    extern const opt::Constant e;
 }
 
 std::ostream &operator<<(std::ostream &out, const opt::GraphNode &var);
 std::istream &operator>>(std::istream &in, opt::GraphNode &var);
 opt::Constant operator "" _const(long double val);
-
-const opt::Constant e = 2.71828_const;
 
 #endif
