@@ -25,3 +25,12 @@ Constant literal
 ```cpp
 opt::Constant pi = 3.1415926_const;
 ```
+
+# Build
+You must install numpy and matplotlib first to draw graph. For some unknown reason, I cannot get numpy work in python_d. Thus, debug build using VC++ may not run correctly. However, mingw and release mode works perfectly.
+```bash
+pip install numpy matplotlib
+
+mkdir build && cd build && cmake .. -G "Visual Studio 15 2017 Win64" -DENABLE_PLOT=1
+cmake --build . --config Release
+```
