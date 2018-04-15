@@ -1,5 +1,117 @@
 #include "optimizer.h"
 
+// Nodes implementation here
+namespace opt
+{
+    class VariableNodeImpl: public IGraphNodeImpl {
+    public:
+        virtual double eval() const
+        { return val; }
+        virtual bool isMutable() const
+        { return true;} 
+        virtual void assign(double val_)
+        { val = val_; }
+    private:
+        double val;
+    };
+
+    class ConstantNodeImpl: public IGraphNodeImpl {
+    public:
+        ConstantNodeImpl(double val) : val(val){}
+        virtual double eval() const
+        { return val; }
+        virtual bool isMutable() const
+        { return false;} 
+        virtual void assign(double val_)
+        {
+            // nothing..
+        }
+    private:
+        double val;
+    };
+
+    class OpAddNodeImpl: public IGraphNodeImpl {
+    public:
+        OpAddNodeImpl(GraphNode lhs, GraphNode rhs)
+        : lhs(lhs), rhs(rhs) {}
+        virtual double eval() const
+        { return lhs.eval() + rhs.eval(); }
+        virtual bool isMutable() const
+        { return false;} 
+        virtual void assign(double val_)
+        {
+            // nothing..
+        }
+    private:
+        GraphNode lhs, rhs;
+    };
+
+    class OpSubNodeImpl: public IGraphNodeImpl {
+    public:
+        OpSubNodeImpl(GraphNode lhs, GraphNode rhs)
+        : lhs(lhs), rhs(rhs) {}
+        virtual double eval() const
+        { return lhs.eval() - rhs.eval(); }
+        virtual bool isMutable() const
+        { return false;} 
+        virtual void assign(double val_)
+        {
+            // nothing..
+        }
+    private:
+        GraphNode lhs, rhs;
+    };
+
+
+    class OpMulNodeImpl: public IGraphNodeImpl {
+    public:
+        OpMulNodeImpl(GraphNode lhs, GraphNode rhs)
+        : lhs(lhs), rhs(rhs) {}
+        virtual double eval() const
+        { return lhs.eval() * rhs.eval(); }
+        virtual bool isMutable() const
+        { return false;} 
+        virtual void assign(double val_)
+        {
+            // nothing..
+        }
+    private:
+        GraphNode lhs, rhs;
+    };
+
+    class OpPowerNodeImpl: public IGraphNodeImpl {
+    public:
+        OpPowerNodeImpl(GraphNode lhs, GraphNode rhs)
+        : lhs(lhs), rhs(rhs) {}
+        virtual double eval() const
+        { return std::pow(lhs.eval(), rhs.eval()); }
+        virtual bool isMutable() const
+        { return false;} 
+        virtual void assign(double val_)
+        {
+            // nothing..
+        }
+    private:
+        GraphNode lhs, rhs;
+    };
+
+    class OpNegativeNodeImpl: public IGraphNodeImpl {
+    public:
+        OpNegativeNodeImpl(GraphNode rhs)
+        : rhs(rhs) {}
+        virtual double eval() const
+        { return -rhs.eval(); }
+        virtual bool isMutable() const
+        { return false;} 
+        virtual void assign(double val_)
+        {
+            // nothing..
+        }
+    private:
+        GraphNode rhs;
+    };
+}
+
 namespace opt
 {
     const opt::Constant e = 2.71828_const;
