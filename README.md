@@ -61,4 +61,4 @@ Powell's method:
 -1 -0.500003
 1 0.500003
 ```
-![GitHub Logo](/images/result.png)
+![result](/result.png)
