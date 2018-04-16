@@ -1,9 +1,15 @@
 #include <iostream>
 #include "optimizer.h"
+#define PLOT
 #ifdef PLOT
-#include "cppplt.h"
+#include "matplotlibcpp.h"
+namespace plt = matplotlibcpp;
 #endif
 using namespace std;
+
+static constexpr double a = -1;
+static constexpr double b = 10;
+
 
 
 int main(int argc, char *argv[])
@@ -16,7 +22,13 @@ int main(int argc, char *argv[])
     // build f(x)
     auto f = opt::MakeFunction(expr, x);
 #ifdef PLOT
-    cppplt::plot_1d(f, -1, 10);
+{
+    std::vector<double> x(101);
+    for(int i=0; i<101; i++)
+        x[i] = a+i*(b-a)/100;
+    plt::plot(x, f, "b");
+    plt::show();
+}
 #endif
 
     cout<<opt::GoldenSearch(f, 1e-5, -1, 10)<<endl;

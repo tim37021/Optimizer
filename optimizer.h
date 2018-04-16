@@ -61,7 +61,7 @@ namespace opt
 
         }
         template <class ...Args>
-        auto operator()(const Args&... args) -> std::enable_if_t<sizeof...(Args) == N, double>
+        auto operator()(Args... args) const -> std::enable_if_t<sizeof...(Args) == N, double>
         {
             std::array<double, sizeof...(args)> v = {args...};
             for(int i=0; i<v.size(); i++)
@@ -74,7 +74,7 @@ namespace opt
             node = node_;
         }
     private:
-        std::array<Variable, N> variables;
+        mutable std::array<Variable, N> variables;
         GraphNode node;
     };
 

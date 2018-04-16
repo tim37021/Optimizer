@@ -11,8 +11,6 @@ file(GLOB SOURCE optimizer.cpp)
 option(ENABLE_PLOT "Plot or not" OFF)
 if(ENABLE_PLOT)
 add_definitions(-DPLOT)
-set(SOURCE ${SOURCE} cppplt.cpp)
-set(HEADER ${SOURCE} cppplt.h)
 endif()
 
 add_executable(p1 p1.cpp ${SOURCE} ${HEADER})
