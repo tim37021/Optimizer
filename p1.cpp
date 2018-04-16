@@ -1,6 +1,5 @@
 #include <iostream>
 #include "optimizer.h"
-#define PLOT
 #ifdef PLOT
 #include "matplotlibcpp.h"
 namespace plt = matplotlibcpp;
