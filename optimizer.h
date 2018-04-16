@@ -84,8 +84,8 @@ namespace opt
         return Function<sizeof...(args)>(expr, args...);
     }
     extern const opt::Constant e;
-    double GoldenSearch(std::function<double(double)> func, double l, double a, double b);
-    double FibonacciSearch(std::function<double(double)> func, double l, double epsilon, double a, double b);
+    double GoldenSearch(std::function<double(double)> func, double l, double a, double b, bool plot=false);
+    double FibonacciSearch(std::function<double(double)> func, double l, double epsilon, double a, double b, bool plot=false);
 }
 
 std::ostream &operator<<(std::ostream &out, const opt::GraphNode &var);

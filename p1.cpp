@@ -20,17 +20,23 @@ int main(int argc, char *argv[])
 
     // build f(x)
     auto f = opt::MakeFunction(expr, x);
+
 #ifdef PLOT
 {
     std::vector<double> x(101);
     for(int i=0; i<101; i++)
         x[i] = a+i*(b-a)/100;
     plt::plot(x, f, "b");
-    plt::show();
 }
 #endif
 
-    cout<<opt::GoldenSearch(f, 1e-5, -1, 10)<<endl;
-    cout<<opt::FibonacciSearch(f, 1e-5, 0.5e-5, -1, 10)<<endl;
+    //cout<<opt::GoldenSearch(f, 1e-5, -1, 10, true)<<endl;
+    cout<<opt::FibonacciSearch(f, 1e-5, 0.5e-5, -1, 10, true)<<endl;
+    cout<<opt::GoldenSearch(f, 1e-5, -1, 10, true)<<endl;
+
+#ifdef PLOT
+    plt::legend();
+    plt::show();
+#endif
     return 0;
 }

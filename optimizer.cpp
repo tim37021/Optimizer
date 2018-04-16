@@ -1,4 +1,9 @@
 #include "optimizer.h"
+#ifdef PLOT
+#include "matplotlibcpp.h"
+namespace plt = matplotlibcpp;
+#endif
+#include <vector>
 
 // Nodes implementation here
 namespace opt
@@ -172,14 +177,17 @@ namespace opt
 
     // uncertainty l
     // perform search within [a, b]
-    double GoldenSearch(std::function<double(double)> func, double l, double a, double b)
+    double GoldenSearch(std::function<double(double)> func, double l, double a, double b, bool plot)
     {
         double lambda = a+(1-alpha)*(b-a);
         double mu = a+alpha*(b-a);
         double k = 1;
         double flambda = func(lambda);
         double fmu = func(mu);
+        std::vector<double> x, y;
         while(b-a>=l) {
+            x.push_back((a+b)/2.0);
+            y.push_back(func((a+b)/2.0));
             if(flambda>fmu) {
                 a = lambda;
                 lambda = mu;
@@ -195,6 +203,13 @@ namespace opt
             }
             k++;
         }
+        x.push_back((a+b)/2.0);
+        y.push_back(func((a+b)/2.0));
+#ifdef PLOT
+        if(plot) {
+            plt::named_plot("Golden Search", x, y, "ro");
+        }
+#endif
         return (a+b)/2.0;
     }
 
@@ -208,7 +223,7 @@ namespace opt
         return dp[n]=(fib(n-1)+fib(n-2));
     }
 
-    double FibonacciSearch(std::function<double(double)> func, double l, double epsilon, double a, double b)
+    double FibonacciSearch(std::function<double(double)> func, double l, double epsilon, double a, double b, bool plot)
     {
         // choose a suitable n
         int n;
@@ -220,14 +235,18 @@ namespace opt
 
         double flambda=func(lambda);
         double fmu=func(mu);
-
+        std::vector<double> x, y;
         while(1) {
+            x.push_back((a+b)/2.0);
+            y.push_back(func((a+b)/2.0));
             if(flambda>fmu) {
                 a = lambda;
                 lambda = mu;
                 mu = a+(static_cast<double>(fib(n-k-1))/fib(n-k))*(b-a);
                 flambda = fmu;
                 fmu = func(mu);
+                x.push_back(mu);
+                y.push_back(fmu);
             } else {
                 b = mu;
                 mu = lambda;
@@ -246,6 +265,13 @@ namespace opt
             }
             k++;
         }
+        x.push_back((a+b)/2.0);
+        y.push_back(func((a+b)/2.0));
+#ifdef PLOT
+        if(plot) {
+            plt::named_plot("Fib Search", x, y, "go");
+        }
+#endif
 
         return (a+b)/2.0;
     }

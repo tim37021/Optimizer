@@ -45,9 +45,10 @@ Remove this line in pyconfig.h
 Because of the natural of the two search algorithm, Golden and fib search failed to find correct minima within given [a, b] interval.
 ```
 >p1.exe
-10
 9.99999
-``` 
+10
+```
+![result](/result_p1.png) 
 
 #### problem 2 & 3
 I combined univaridate algorithm(cyclic coordinate) and Powell's method with golden search.
