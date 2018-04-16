@@ -2,7 +2,12 @@ cmake_minimum_required(VERSION 3.4)
 
 project(p1)
 
-find_package(PythonLibs 3.6 REQUIRED)
+if(MSVC)
+add_definitions(/MT)
+else()
+# assume g++
+add_definitions(-static)
+endif()
 
 set (CMAKE_CXX_STANDARD 17)
 file(GLOB HEADER optimizer.h)
@@ -10,6 +15,7 @@ file(GLOB SOURCE optimizer.cpp)
 
 option(ENABLE_PLOT "Plot or not" OFF)
 if(ENABLE_PLOT)
+find_package(PythonLibs 3.6 REQUIRED)
 add_definitions(-DPLOT)
 endif()
 
