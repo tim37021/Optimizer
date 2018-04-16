@@ -104,15 +104,23 @@ int main(int argc, char *argv[])
     opt::Expression expr = (x1^4)+(x2^2)*4.0-(x1^2)-x1*x2*4.0;
     auto f = opt::MakeFunction(expr, x1, x2);
 
+    cout<<"Univaridate method:"<<endl;
     {
         double x1=-0.5, x2=-1.5;
         int steps = ND1D(f, 1e-5, x1, x2);
         cout<<x1<<" "<<x2<<endl;
+        x1 = 0.5; x2=1.5;
+        steps = ND1D(f, 1e-5, x1, x2);
+        cout<<x1<<" "<<x2<<endl;
     }
 
+    cout<<"Powell's method:"<<endl;
     {
         double x1=-0.5, x2=-1.5;
         int steps = Powell(f, 1e-5, x1, x2);
+        cout<<x1<<" "<<x2<<endl;
+        x1 = 0.5; x2=1.5;
+        steps = Powell(f, 1e-5, x1, x2);
         cout<<x1<<" "<<x2<<endl;
     }
 #ifdef PLOT

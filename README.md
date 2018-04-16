@@ -39,3 +39,26 @@ Remove this line in pyconfig.h
 ```cpp
 #define hypot _hypot
 ```
+
+# Homework Report
+#### problem 1
+Because of the natural of the two search algorithm, Golden and fib search failed to find correct minima within given [a, b] interval.
+```
+>p1.exe
+10
+9.99999
+``` 
+
+#### problem 2 & 3
+I combined univaridate algorithm(cyclic coordinate) and Powell's method with golden search.
+Since there are two minima in the objective function, I called both function twice with different initial points.
+```
+>p2.exe
+Univaridate method:
+-1.00043 -0.501071
+1.00043 0.501068
+Powell's method:
+-1 -0.500003
+1 0.500003
+```
+![GitHub Logo](/images/result.png)
